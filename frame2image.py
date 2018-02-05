@@ -25,16 +25,20 @@ while True:
     ret, frame = video_capture.read()
 
     # Resize frame of video to 1/4 size for faster face recognition processing
-    #small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25,interpolation=cv2.INTER_AREA)
-    small_frame=frame
+    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25,interpolation=cv2.INTER_AREA)
+    #small_frame=frame
 
     # Only process every other frame of video to save time
     if process_this_frame:
         # Find all the faces and face encodings in the current frame of video
         face_locations = face_recognition.face_locations(small_frame)
+        
         faces = len(face_locations)
         print "find %d faces"%faces
         #face_encodings = face_recognition.face_encodings(small_frame, face_locations)
+        
+        for (top,right,bottom,left) in face_locations:
+                cv2.rectangle(frame,(left*4,top*4),(right*4,bottom*4),(0,0,255),5)
 
         cv2.imwrite("%d_%d.jpg"%(cnt,faces),frame)
         cnt=cnt+1
