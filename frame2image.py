@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 import face_recognition
 import cv2
+import ft2
 
 video_capture = cv2.VideoCapture(0)
 
@@ -19,7 +21,8 @@ print "!"
 writer = None
 
 #On linux I used to take "M","J","P","G" as fourcc
- 
+ft = ft2.put_chinese_text('/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc')
+
 while True:
     # Grab a single frame of video
     ret, frame = video_capture.read()
@@ -39,11 +42,13 @@ while True:
         
         for (top,right,bottom,left) in face_locations:
                 cv2.rectangle(frame,(left*4,top*4),(right*4,bottom*4),(0,0,255),5)
+                frame=ft.draw_text(frame,((left+right)*2,bottom*4),u'波音',20,(0,255,0))
 
         cv2.imwrite("%d_%d.jpg"%(cnt,faces),frame)
         cnt=cnt+1
     if process_this_frame:
         process_this_frame=False
+        process_this_frame=True
     else:
         process_this_frame=True
     
