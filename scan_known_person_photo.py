@@ -35,7 +35,7 @@ for parent,dirnames,filenames in os.walk(known_persons_dir):
 
 		image = face_recognition.load_image_file("%s/%s"%(known_persons_dir,filename))
 		try:
-			face_encoding = face_recognition.face_encodings(image)[0]
+			face_encoding = face_recognition.face_encodings(image,num_jitters=30)[0]
 		except:
 			print "FAIL TO RECOGNIZE %s/%s"%(known_persons_dir,filename)
 			continue

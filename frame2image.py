@@ -7,10 +7,12 @@ import datetime
 inteval = datetime.timedelta(seconds=1)
 time_stamp = datetime.datetime.now()
 video_capture = cv2.VideoCapture(0)
-ret=video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH,1920)  
+#ret=video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH,1920)  
+ret=video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH,1280)  
  
 print ret 
-ret=video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT,1080)  
+#ret=video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT,1080)  
+ret=video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT,720)  
 
 print ret
 found_face=False
@@ -49,7 +51,7 @@ while True:
     # Only process every other frame of video to save time
     if process_this_frame:
         # Find all the faces and face encodings in the current frame of video
-        face_locations = face_recognition.face_locations(small_frame)
+        face_locations = face_recognition.face_locations(small_frame,number_of_times_to_upsample=2)
         
         faces = len(face_locations)
         print "find %d faces"%faces
@@ -77,7 +79,7 @@ while True:
         #fourcc = cv2.ViceoWriter_fourcc(*'XVID')
         #writer = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
         #videoWriter = cv2.VideoWriter('oto_other.mpg', cv2.cv.CV_FOURCC('M', 'J', 'P', 'G'), fps, v_size)
-        writer = cv2.VideoWriter('oto_other.avi', cv2.cv.CV_FOURCC(*'XVID'), fps, v_size)
+        #writer = cv2.VideoWriter('oto_other.avi', cv2.cv.CV_FOURCC(*'XVID'), fps, v_size)
         #print type(writer)
  
         #writer=cv2.cv.CreateVideoWriter("output.avi", cv2.cv.CV_FOURCC("D", "I", "B", " "), 5, cv2.cv.GetSize(frame), 1)

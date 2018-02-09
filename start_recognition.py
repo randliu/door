@@ -43,7 +43,7 @@ print "\n %d face code loaded"%face_code_cnt
 #print dict_face_code
 
 print "Connecting camera"
-video_capture = cv2.VideoCapture(1)
+video_capture = cv2.VideoCapture(0)
 print dir(video_capture)
 process_this_frame = False
 round_cnt =0
@@ -58,9 +58,9 @@ while True:
     now = datetime.now()
     timespan = now - time_mark
 
-    print timespan.total_seconds()
+    #print timespan.total_seconds()
     if timespan.total_seconds() <2:
-        print "continue"
+        #print "continue"
         cv2.imshow('Video',frame)
         continue
 
@@ -89,7 +89,7 @@ while True:
         for face_encoding in face_encodings:
             cnt = cnt+1
             for name,code in dict_face_code.iteritems():
-                match = face_recognition.compare_faces( [code], face_encoding,tolerance=0.45)
+                match = face_recognition.compare_faces( [code], face_encoding,tolerance=0.6)
                 if match[0]:
                     print "\n\n Face %d match %s"%(cnt,str(name))
                     lst_matched_name.append(name)
@@ -102,6 +102,7 @@ while True:
             time_mark = datetime.now()
 
         if not matched:
+	    pass
             print "NOT FACE MATCHING"
             #time.sleep(1)
 
